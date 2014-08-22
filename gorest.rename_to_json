@@ -1,5 +1,5 @@
 {
-	"data_source": "root:p@tcp(127.0.0.1:3306)/test",
+	"data_source": "root:pass@tcp(127.0.0.1:3306)/test",
 	
 	"enable_http": true,
 	"host_http": "0.0.0.0",
