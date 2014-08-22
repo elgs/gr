@@ -1,0 +1,15 @@
+{
+	"data_source": "root:pass@tcp(127.0.0.1:3306)/test",
+	
+	"enable_http": true,
+	"host_http": "0.0.0.0",
+	"port_http": 8080,
+
+	"enable_https": false,
+	"host_https": "0.0.0.0",
+	"port_https": 8443,
+	"cert_file_https": "cert.crt",
+	"key_file_https": "private.key",
+
+	"url_prefix": "api"
+}
