@@ -1,14 +1,12 @@
 package main
 
 import (
-	"fmt"
-	//"github.com/elgs/gorest"
-	//"github.com/elgs/gosqljson"
 	"database/sql"
 	"errors"
+	"fmt"
+	"github.com/elgs/gorest"
+	"github.com/elgs/gosqljson"
 	_ "github.com/go-sql-driver/mysql"
-	"gorest"
-	"gosqljson"
 )
 
 func init() {

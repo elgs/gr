@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"gorest"
+	"github.com/elgs/gorest"
 	"io/ioutil"
 	"os"
 )

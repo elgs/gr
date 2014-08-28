@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	//"github.com/elgs/gorest"
+	"github.com/elgs/gorest"
 	_ "github.com/go-sql-driver/mysql"
-	"gorest"
 )
 
 func init1() {
