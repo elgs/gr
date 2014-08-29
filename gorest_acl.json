@@ -1,0 +1,11 @@
+{
+	"test.test": {
+		"load": false,
+		"create": false,
+		"update": false,
+		"duplicate": false,
+		"delete": false,
+		"list": false,
+		"query": false
+	}
+}

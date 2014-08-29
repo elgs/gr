@@ -2,11 +2,13 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/elgs/gorest"
 	"github.com/elgs/gosqljson"
 	_ "github.com/go-sql-driver/mysql"
+	"io/ioutil"
 )
 
 func init() {
@@ -38,6 +40,16 @@ func checkToken(db *sql.DB, id string, key string, context map[string]interface{
 
 func loadACL() {
 	// load acl from configuration files.
+	configFile := "gorest_acl.json"
+	aclConfig, err := ioutil.ReadFile(configFile)
+	if err != nil {
+		fmt.Println(configFile, " not found, default policies are used.")
+	}
+	err = json.Unmarshal(aclConfig, &acl)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(len(acl), acl)
 }
 
 func checkACL(context map[string]interface{}, op string) (bool, error) {
