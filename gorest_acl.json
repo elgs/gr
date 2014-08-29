@@ -5,7 +5,7 @@
 		"update": false,
 		"duplicate": false,
 		"delete": false,
-		"list": false,
+		"list": true,
 		"query": false
 	}
 }

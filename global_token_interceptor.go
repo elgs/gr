@@ -17,13 +17,13 @@ func init() {
 }
 
 var acl = make(map[string]map[string]bool)
-var tokenRegistry = make(map[string]string)
+var tokenRegistry = make(map[string][]string) // id:[token_key, user_id]
 
 func checkToken(db *sql.DB, id string, key string, context map[string]interface{}) (bool, error) {
 	if context["table_id"] == "gorest.token" {
 		return false, errors.New("We think you are invading the system.")
 	}
-	if id != "" && key != "" && tokenRegistry[id] == key {
+	if id != "" && key != "" && len(tokenRegistry[id]) > 0 && tokenRegistry[id][0] == key {
 		return true, nil
 	}
 	data, err := gosqljson.QueryDbToMap(db, false, "SELECT * FROM gorest.token WHERE ID=? AND TOKEN_KEY=? AND STATUS=?", id, key, "0")
@@ -32,7 +32,8 @@ func checkToken(db *sql.DB, id string, key string, context map[string]interface{
 		return false, err
 	}
 	if data != nil && len(data) == 1 {
-		tokenRegistry[data[0]["ID"]] = data[0]["TOKEN_KEY"]
+		record := data[0]
+		tokenRegistry[record["ID"]] = []string{record["TOKEN_KEY"], record["USER_ID"]}
 		return true, nil
 	}
 	return false, errors.New("Authentication failed.")
@@ -49,7 +50,7 @@ func loadACL() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(len(acl), acl)
+	//fmt.Println(len(acl), acl)
 }
 
 func checkACL(context map[string]interface{}, op string) (bool, error) {
