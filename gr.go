@@ -6,6 +6,7 @@ import (
 	"github.com/elgs/gorest"
 	"io/ioutil"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -15,7 +16,10 @@ func main() {
 		return
 	}
 	ds := config["data_source"].(string)
-	dbo := &gorest.MySqlDataOperator{Ds: ds}
+	dbo := &gorest.MySqlDataOperator{
+		Ds:              ds,
+		DbNameExtractor: extractDbNameFromDs,
+	}
 	r := &gorest.Gorest{
 		EnableHttp: config["enable_http"].(bool),
 		HostHttp:   config["host_http"].(string),
@@ -30,6 +34,16 @@ func main() {
 		UrlPrefix: config["url_prefix"].(string),
 		Dbo:       dbo}
 	r.Serve()
+}
+
+func extractDbNameFromDs(ds string) string {
+	a := strings.LastIndex(ds, "/")
+	b := ds[a+1:]
+	c := strings.Index(b, "?")
+	if c < 0 {
+		return b
+	}
+	return b[:c]
 }
 
 func parseConfig(configFile string) map[string]interface{} {
