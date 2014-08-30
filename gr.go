@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/elgs/gorest"
+	_ "github.com/go-sql-driver/mysql"
 	"io/ioutil"
 	"os"
 )
@@ -16,9 +17,11 @@ func main() {
 	}
 	ds := config["data_source"].(string)
 	dbType := config["db_type"].(string)
+	tokenTable := config["token_table"].(string)
 	dbo := &gorest.MySqlDataOperator{
-		Ds:     ds,
-		DbType: dbType,
+		Ds:         ds,
+		DbType:     dbType,
+		TokenTable: tokenTable,
 	}
 	r := &gorest.Gorest{
 		EnableHttp: config["enable_http"].(bool),

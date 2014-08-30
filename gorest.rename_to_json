@@ -1,6 +1,7 @@
 {
 	"db_type": "mysql",
 	"data_source": "root:pass@tcp(127.0.0.1:3306)/test",
+	"token_table": "token",
 	
 	"enable_http": true,
 	"host_http": "0.0.0.0",
