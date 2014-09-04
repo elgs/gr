@@ -32,7 +32,7 @@ func checkToken(db *sql.DB, id string, key string, context map[string]interface{
 		}
 
 		gorest.MysqlSafe(&tokenTableString)
-		data, err := gosqljson.QueryDbToMap(db, false, fmt.Sprint("SELECT * FROM ", tokenTableString, " WHERE ID=? AND TOKEN_KEY=? AND STATUS=?"), id, key, "0")
+		data, err := gosqljson.QueryDbToMap(db, false, fmt.Sprint("SELECT * FROM ", tokenTableString, " WHERE ID=? AND TOKEN_KEY=?"), id, key)
 		if err != nil {
 			fmt.Println(err)
 			return false, err
@@ -86,11 +86,11 @@ func (this *GlobalTokenInterceptor) BeforeCreate(ds interface{}, context map[str
 		if context["meta"] != nil && context["meta"].(bool) {
 			userToken := context["user_token"]
 			if v, ok := userToken.(map[string]string); ok {
-				data["CREATOR_ID"] = v["USER_ID"]
-				data["CREATOR_CODE"] = v["USER_CODE"]
+				data["CREATOR_ID"] = v["ID"]
+				data["CREATOR_CODE"] = v["CODE"]
 				data["CREATE_TIME"] = time.Now()
-				data["UPDATER_ID"] = v["USER_ID"]
-				data["UPDATER_CODE"] = v["USER_CODE"]
+				data["UPDATER_ID"] = v["ID"]
+				data["UPDATER_CODE"] = v["CODE"]
 				data["UPDATE_TIME"] = time.Now()
 			}
 		}
@@ -120,8 +120,8 @@ func (this *GlobalTokenInterceptor) BeforeUpdate(ds interface{}, context map[str
 		if context["meta"] != nil && context["meta"].(bool) {
 			userToken := context["user_token"]
 			if v, ok := userToken.(map[string]string); ok {
-				data["UPDATER_ID"] = v["USER_ID"]
-				data["UPDATER_CODE"] = v["USER_CODE"]
+				data["UPDATER_ID"] = v["ID"]
+				data["UPDATER_CODE"] = v["CODE"]
 				data["UPDATE_TIME"] = time.Now()
 			}
 		}
