@@ -58,7 +58,6 @@ func loadACL() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	//fmt.Println(len(acl), acl)
 }
 
 func checkACL(context map[string]interface{}, op string) (bool, error) {
