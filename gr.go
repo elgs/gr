@@ -23,6 +23,7 @@ func main() {
 		DbType:     dbType,
 		TokenTable: tokenTable,
 	}
+	gorest.RegisterDataOperator("api", dbo)
 	r := &gorest.Gorest{
 		EnableHttp: config["enable_http"].(bool),
 		HostHttp:   config["host_http"].(string),
@@ -33,9 +34,7 @@ func main() {
 		PortHttps:     uint16(config["port_https"].(float64)),
 		CertFileHttps: config["cert_file_https"].(string),
 		KeyFileHttps:  config["key_file_https"].(string),
-
-		UrlPrefix: config["url_prefix"].(string),
-		Dbo:       dbo}
+	}
 	r.Serve()
 }
 
