@@ -25,10 +25,9 @@ func main() {
 	}
 	gorest.RegisterDataOperator("api", dbo)
 	r := &gorest.Gorest{
-		EnableHttp: config["enable_http"].(bool),
-		HostHttp:   config["host_http"].(string),
-		PortHttp:   uint16(config["port_http"].(float64)),
-
+		EnableHttp:    config["enable_http"].(bool),
+		HostHttp:      config["host_http"].(string),
+		PortHttp:      uint16(config["port_http"].(float64)),
 		EnableHttps:   config["enable_https"].(bool),
 		HostHttps:     config["host_https"].(string),
 		PortHttps:     uint16(config["port_https"].(float64)),
